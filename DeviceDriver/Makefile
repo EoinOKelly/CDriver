@@ -1,13 +1,11 @@
-obj-m += DeviceDriverBluetooth.o
+obj-m += ControllerDriver.o
 
 KDIR := /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 
-# Include Bluetooth headers (if necessary, adjust the path)
-EXTRA_CFLAGS += -I/usr/include/bluetooth
-
 all:
-	make -C $(KDIR) M=$(PWD) modules
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
+	gcc -o ButtonReading ButtonReading.c
 
 clean:
-	make -C $(KDIR) M=$(PWD) clean
+	rm -rf *.o *.ko *.mod.* *.symvers *.order ButtonReading
